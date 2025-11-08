@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Village Central Library</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+
+  <style>
+    /* ========== RESET ========== */
+    * {margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif;}
+    body {background: #fffaf2; color: #333; line-height: 1.6;}
+
+    /* ========== WELCOME SCREEN ========== */
+    #welcome {
+      position: fixed; inset: 0;
+      background: linear-gradient(to right, #2b6cb0, #68d391);
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      color: white; z-index: 9999; transition: opacity 1s ease;
+    }
+    #welcome.hide {opacity: 0; pointer-events: none;}
+    .book {
+      width: 100px; height: 100px; border: 4px solid #fff; border-radius: 10px;
+      margin-bottom: 2rem; background: url('city mall logo.png') center/cover no-repeat;
+      animation: flipBook 2s infinite ease-in-out;
+    }
+    @keyframes flipBook {0%,100%{transform:rotateY(0deg);}50%{transform:rotateY(10deg);}}
+
+    /* ========== HEADER ========== */
+    header {
+      background: linear-gradient(to right, #2b6cb0, #68d391);
+      color: #fff; display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo {display: flex; align-items: center; gap: 10px;}
+    .logo img {width: 55px; height: 55px; border-radius: 50%; border: 2px solid #fff; background: #fff;}
+    .logo h1 {font-size: 1.5rem; font-weight: 700;}
+
+    nav ul {display: flex; list-style: none; gap: 1.5rem;}
+    nav a {color: #fff; text-decoration: none; font-weight: 500; transition: 0.3s;}
+    nav a:hover {color: #bee3f8; text-decoration: underline;}
+
+    .menu-toggle {display: none; font-size: 1.8rem; cursor: pointer; color: #fff;}
+
+    /* ========== RESPONSIVE NAVBAR ========== */
+    @media (max-width: 768px) {
+      .menu-toggle {display: block; position: absolute; right: 25px; top: 25px;}
+      nav {
+        display: none; width: 100%; background: #2b6cb0;
+        position: absolute; top: 70px; left: 0; padding: 10px 0;
+      }
+      nav ul {flex-direction: column; align-items: center; gap: 1rem;}
+      nav.show {display: flex; justify-content: center; animation: slideDown 0.3s ease;}
+      @keyframes slideDown {from{opacity:0;transform:translateY(-15px);}to{opacity:1;transform:translateY(0);}}
+    }
+
+    /* ========== HERO SECTION ========== */
+    .hero {
+      background: url('hero1.jpg') center/cover no-repeat; color: white;
+      text-align: center; padding: 5rem 1rem; position: relative;
+    }
+    .hero::before {content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.55);}
+    .hero-text {position: relative; z-index: 1; max-width: 700px; margin: auto;}
+    .hero h1 {font-size: 2.5rem; margin-bottom: 1rem;}
+    .hero p {font-size: 1.1rem; margin-bottom: 1.5rem;}
+    .btn {background: #68d391; color: #fff; padding: 0.7rem 1.5rem; border-radius: 25px; text-decoration: none; transition: 0.3s;}
+    .btn:hover {background: #48bb78;}
+
+    /* ========== SECTIONS ========== */
+    section {padding: 4rem 2rem; text-align: center;}
+    h2 {color: #2b6cb0; margin-bottom: 2rem; font-size: 1.8rem;}
+
+    /* ========== FACILITIES ========== */
+    #facilities {background: #fefae0;}
+    .facility-list {display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem;}
+    .facility {
+      background: #fff; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 280px; padding: 1.5rem; transition: 0.3s ease;
+    }
+    .facility:hover {transform: translateY(-8px); box-shadow: 0 6px 12px rgba(0,0,0,0.2);}
+    .facility img {width: 100%; border-radius: 10px; margin-bottom: 1rem;}
+
+  #membership {
+    background: #fefae0;
+    padding: 4rem 2rem;
+  }
+
+  .plan-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .plan {
+    background: #fff;
+    width: 260px;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: 0.3s;
+  }
+
+  .plan.highlight {
+    background: linear-gradient(to bottom right, #2b6cb0, #68d391);
+    color: white;
+  }
+
+  .plan:hover {
+    transform: translateY(-8px);
+  }
+
+  .plan h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .plan h4 {
+    margin-top: 1rem;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  @media(max-width: 768px) {
+    .plan-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+
+    /* ========== MOTIVATION ========== */
+    .motivation {background: linear-gradient(to right, #bee3f8, #fefae0); padding: 4rem 2rem;}
+    .motivation h2 {margin-bottom: 1rem; font-size: 2rem;}
+    .motivation p {font-size: 1.1rem; max-width: 700px; margin: auto;}
+    blockquote {font-size: 1.3rem; font-weight: bold; color: #2b6cb0; margin-top: 1rem;}
+
+    /* ========== STUDY INFO (50/50) ========== */
+    .study-info {background: linear-gradient(to right, #e0f7fa, #fffaf2); padding: 60px 20px;}
+    .study-container {
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start;
+      max-width: 1100px; margin: auto; gap: 20px;
+    }
+    .seat-availability, .time-table {
+      flex: 1 1 45%; background: #fff; padding: 30px; border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1); transition: transform 0.3s ease;
+    }
+    .seat-availability:hover, .time-table:hover {transform: translateY(-5px);}
+    .progress-bar {width: 100%; background: #e5e7eb; border-radius: 20px; overflow: hidden; height: 25px;}
+    .progress {height: 100%; background: linear-gradient(90deg,#68d391,#2b6cb0); color: #fff; text-align: center; line-height: 25px; font-weight: bold;}
+    .time-table table {width: 100%; border-collapse: collapse;}
+    .time-table th, .time-table td {border: 1px solid #d1d5db; padding: 10px 12px; text-align: left;}
+    .time-table th {background: #2b6cb0; color: white;}
+
+    /* ========== GALLERY ========== */
+    .gallery {
+      display: grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+      gap: 1rem; max-width: 1000px; margin: auto;
+    }
+    .gallery img {width: 100%; border-radius: 10px; transition: 0.3s; filter: brightness(0.95);}
+    .gallery img:hover {transform: scale(1.05); filter: brightness(1);}
+
+    /* ========== CONTACT ========== */
+    #contact {background: #edf2f7;}
+    form {max-width: 600px; margin: auto; display: flex; flex-direction: column; gap: 1rem;}
+    input, textarea {
+      padding: 0.8rem; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem;
+    }
+    input:focus, textarea:focus {
+      outline: none; border-color: #2b6cb0; box-shadow: 0 0 4px rgba(43,108,176,0.5);
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      background: linear-gradient(to right, #2b6cb0, #68d391);
+      color: #fff; padding: 30px 20px;
+    }
+    .footer-container {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1100px; margin: auto; gap: 20px; flex-wrap: wrap;
+    }
+    .footer-map {width: 25%; min-width: 200px;}
+    .footer-text {width: 70%;}
+    .footer-quote {font-size: 1.1rem; font-style: italic; margin-bottom: 8px;}
+    .footer-social a {color: #fff; margin-right: 12px; font-size: 1.3rem; transition: color 0.3s ease;}
+    .footer-social a:hover {color: #ffeb99;}
+
+    @media (max-width: 768px) {
+      .footer-container {flex-direction: column; text-align: center;}
+      .footer-map, .footer-text {width: 100%;}
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Welcome Animation -->
+  <div id="welcome">
+    <div class="book"></div>
+    <h1>Welcome to Village Central Library</h1>
+    <p>"Where dreams open one page at a time..."</p>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="city mall logo.png" alt="Library Logo">
+      <h1>Village Central Library</h1>
+    </div>
+
+    <div class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <nav id="navbar">
+      <ul>
+        <li><a href="#facilities">Facilities</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Welcome to Your Peaceful Study Space</h1>
+      <p>In our small village, big dreams are being prepared daily — join us in this journey of learning.</p>
+      <a href="#contact" class="btn">Join Us</a>
+    </div>
+  </section>
+
+  <!-- Facilities -->
+  <section id="facilities">
+    <h2>Our Facilities</h2>
+    <div class="facility-list">
+      <div class="facility">
+        <img src="https://images.unsplash.com/photo-1589571894960-20bbe2828d0a" alt="Reading Area">
+        <h3>Peaceful Reading Space</h3>
+        <p>Quiet environment with proper seating for long study sessions.</p>
+      </div>
+
+      <div class="facility">
+        <img src="https://images.unsplash.com/photo-1596495577886-d920f1fb7238" alt="Free Wi-Fi">
+        <h3>Free Wi-Fi Zone</h3>
+        <p>Stay connected to the world of knowledge with free internet access.</p>
+      </div>
+
+      <div class="facility">
+        <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f" alt="Newspapers">
+        <h3>Daily Newspapers & Magazines</h3>
+        <p>Keep yourself updated with current affairs and exam trends.</p>
+      </div>
+    </div>
+  </section>
+<section id="membership">
+  <h2>Membership Plans</h2>
+  <div class="plan-container">
+    <div class="plan">
+      <h3>Basic Member</h3>
+      <p>Access to reading area & daily newspapers.</p>
+      <h4>₹50 / month</h4>
+    </div>
+
+    <div class="plan highlight">
+      <h3>Regular Member</h3>
+      <p>Full access + Wi-Fi + special reading events.</p>
+      <h4>₹100 / month</h4>
+    </div>
+
+    <div class="plan">
+      <h3>Premium Member</h3>
+      <p>All features + reserved seat + priority access.</p>
+      <h4>₹150 / month</h4>
+    </div>
+  </div>
+</section>
+
+  <!-- Motivation -->
+  <section class="motivation">
+    <h2>Big Dreams from a Small Village</h2>
+    <p>Every morning, dozens of students open their books with hope. Our library isn’t just about reading — it’s about believing that dreams from small villages can shine on big stages.</p>
+    <blockquote>"Education is the most powerful weapon which you can use to change the world."</blockquote>
+  </section>
+
+  <!-- Study Info -->
+  <section class="study-info">
+    <div class="study-container">
+      <div class="seat-availability">
+        <h2>Seat Availability</h2>
+        <p>Peaceful study spaces ready for learners like you!</p>
+        <div class="progress-bar">
+          <div class="progress" style="width:60%;">60%</div>
+        </div>
+        <p class="note">Join now — limited seats left for this session!</p>
+      </div>
+
+      <div class="time-table">
+        <h2>Today's Schedule</h2>
+        <table>
+          <tr><th>Time</th><th>Activity</th></tr>
+          <tr><td>06:00 AM - 09:00 AM</td><td>Morning Reading & Newspaper</td></tr>
+          <tr><td>09:00 AM - 01:00 PM</td><td>Competitive Study Hours</td></tr>
+          <tr><td>01:00 PM - 02:00 PM</td><td>Lunch & Rest</td></tr>
+          <tr><td>02:00 PM - 06:00 PM</td><td>Group Discussions & Practice</td></tr>
+          <tr><td>06:00 PM - 09:00 PM</td><td>Evening Revision / WiFi Research</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery">
+    <h2>Our Gallery</h2>
+    <div class="gallery">
+      <img src="lab1.avif" alt="Library Interior">
+      <img src="lab2.avif" alt="Students Studying">
+      <img src="lab3.jpg" alt="Reading Tables">
+      <img src="lab4.jpg" alt="Bookshelf">
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="5" placeholder="Your Message"></textarea>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3578.981417595058!2d85.04399727457232!3d25.295419830006735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f2a1a3c4a13ef1%3A0x72c5b2c76d34b97f!2sCity%20Central%20Library!5e0!3m2!1sen!2sin!4v1730918400000!5m2!1sen!2sin"
+          width="100%" height="140" style="border:0; border-radius:10px;" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="footer-text">
+        <p class="footer-quote">“Learning never stops — even in the quiet corners of our village.”</p>
+        <p>© 2025 Village Central Library | Designed with ❤ for Students</p>
+        <div class="footer-social">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    setTimeout(() => {
+      document.getElementById('welcome').classList.add('hide');
+    }, 2000);
+
+    const menuToggle = document.getElementById('menuToggle');
+    const navbar = document.getElementById('navbar');
+    menuToggle.addEventListener('click', () => {
+      navbar.classList.toggle('show');
+      menuToggle.querySelector('i').classList.toggle('fa-times');
+    });
+  </script>
+</body>
+</html>
