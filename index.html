@@ -155,15 +155,21 @@
     </section>
 
     <!-- Gallery -->
-    <section id="gallery">
-        <h2>Our Gallery</h2>
-        <div class="gallery">
-            <img src="lab1.avif" alt="Library Interior">
-            <img src="lab2.avif" alt="Students Studying">
-            <img src="lab3.jpg" alt="Reading Tables">
-            <img src="lab4.jpg" alt="Bookshelf">
-        </div>
-    </section>
+   <section id="gallery">
+  <h2>Our Gallery</h2>
+  <div class="carousel-container">
+    <div class="carousel">
+      <img src="images/galleryimg1.png" alt="Library Interior">
+      <img src="images/galleryimg2.png" alt="Students Studying">
+      <img src="images/galleryimg3.png" alt="Reading Tables">
+      <img src="images/galleryimg4.png" alt="Bookshelf">
+         <img src="images/galleryimg5.png" alt="Bookshelf">
+    </div>
+  </div>
+
+  
+</section>
+
 
     <!-- Contact -->
     <section id="contact">
@@ -172,7 +178,7 @@
             <input type="text" placeholder="Your Name" required>
             <input type="email" placeholder="Your Email" required>
             <textarea rows="5" placeholder="Your Message"></textarea>
-            <button type="submit" class="btn">Send Memes</button>
+            <button type="submit" id="btnHero">Send Memes</button>
         </form>
     </section>
 
@@ -223,6 +229,32 @@
         crossorigin="anonymous"></script>
     <!-- Scripts -->
     <script src="script.js"></script>
+    <script>
+        const carousel = document.querySelector(".carousel");
+const images = document.querySelectorAll(".carousel img");
+let index = 0;
+
+function showSlide() {
+  index++;
+  if (index >= images.length) index = 0;
+  carousel.style.transform = `translateX(${-index * 100}%)`;
+}
+
+let slideInterval = setInterval(showSlide, 3000); // Auto Slide
+
+document.querySelector(".next").addEventListener("click", () => {
+  clearInterval(slideInterval);
+  showSlide();
+});
+
+document.querySelector(".prev").addEventListener("click", () => {
+  clearInterval(slideInterval);
+  index--;
+  if (index < 0) index = images.length - 1;
+  carousel.style.transform = `translateX(${-index * 100}%)`;
+});
+
+    </script>
 </body>
 
 </html>
