@@ -32,3 +32,21 @@ document.querySelector(".prev").addEventListener("click", () => {
   if (index < 0) index = images.length - 1;
   carousel.style.transform = `translateX(${-index * 100}%)`;
 });
+
+let clickTimer;
+    const url = "https://www.google.com/maps/search/?api=1&query=25.4129831,83.8981369";
+
+    document.getElementById("map-overlay").addEventListener("click", function () {
+        
+        // Detecting double-click manually
+        if (clickTimer) {
+            // Double click → redirect
+            clearTimeout(clickTimer);
+            window.open(url, "_blank");
+        } else {
+            // Single click → allow iframe zoom
+            clickTimer = setTimeout(() => {
+                clickTimer = null;
+            }, 250); // double click detection time
+        }
+    });
